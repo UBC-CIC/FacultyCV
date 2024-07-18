@@ -22,7 +22,7 @@ const FacultyHomePage = ({ userInfo, getCognitoUser, getUser }) => {
       console.log(await getElsevierAuthorMatches(user.first_name, user.last_name, 'University of British Columbia'));
       console.log(await linkScopusId(user.user_id, '12345'));
     }
-    getElsevierMatches();
+    // getElsevierMatches();
   }, [user, userInfo]);
 
   const sortUniversityInfo = () => {
@@ -90,7 +90,7 @@ const FacultyHomePage = ({ userInfo, getCognitoUser, getUser }) => {
   return (
     <PageContainer>
       <FacultyMenu getCognitoUser={getCognitoUser} userName={user.preferred_name || user.first_name}></FacultyMenu>
-      <main className='ml-4 pr-5 overflow-auto custom-scrollbar'>
+      <main className='ml-4 pr-5 overflow-auto custom-scrollbar w-full'>
         <h1 className="text-4xl font-bold my-3 text-zinc-600">Profile</h1>
         {loading ? (
           <div className='flex items-center justify-center w-full'>

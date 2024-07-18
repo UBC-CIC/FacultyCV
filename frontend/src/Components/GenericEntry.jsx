@@ -20,11 +20,11 @@ const GenericEntry = ({ isArchived, onEdit, onArchive, onRestore, onDelete, fiel
 
         {!isArchived &&
           <div>
-            <button className="btn btn-xs btn-circle btn-ghost" onClick={() => onEdit()}>
+            <button className="btn btn-xs btn-circle btn-ghost" onClick={onEdit}>
               <FaRegEdit className="h-4 w-4" />
             </button>
                     
-            <button className="btn btn-xs btn-circle btn-ghost" onClick={() => onArchive()}>
+            <button className="btn btn-xs btn-circle btn-ghost" onClick={onArchive}>
               <IoClose className="h-4 w-4" />
             </button>
           </div>
