@@ -5,28 +5,55 @@ import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import '../CustomStyles/scrollbar.css';
 import PDFPreview from '../Components/PDFPreview';
 import Report from '../Components/Report.jsx';
+import generateWordDoc from '../utils/generateWordDoc';
+import { convertMarkdownToHtml } from '../utils/pandocConvert';
 
 const mockPrevReports = ["Grants 2024", "Teaching 2023", "Publications 2022"];
 
 const Reports = ({ userInfo, getCognitoUser }) => {
   const [user, setUser] = useState(userInfo);
   const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [htmlOutput, setHtmlOutput] = useState('');
 
   useEffect(() => {
     setUser(userInfo);
   }, [userInfo]);
 
   const handleSave = () => {
-    // Save report
-  }
+    // Save report logic
+  };
+
+  const handleConvert = async () => {
+    try {
+      const inputText = `
+        # Heading
+
+        This is a simple markdown document.
+
+        ## Subheading
+
+        _Italic_, **bold**, \`monospace\`, ~~strikethrough~~ text.
+
+        ### Itemized lists
+
+          * This
+          * That
+          * and the Other
+      `;
+      const result = await convertMarkdownToHtml(inputText);
+      setHtmlOutput(result);
+    } catch (error) {
+      console.error('Error during conversion:', error);
+    }
+  };
 
   const getFormattedDate = () => {
     const date = new Date();
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
+  };
 
   return (
     <PageContainer className="custom-scrollbar">
@@ -57,13 +84,20 @@ const Reports = ({ userInfo, getCognitoUser }) => {
               <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
             </label>
             <button onClick={handleSave} className="ml-2 mt-6 text-white btn btn-success min-h-0 h-6 leading-tight mb-1">Save</button>
+            
+            <button onClick={handleConvert} className="ml-2 mt-2 text-white btn btn-primary min-h-0 h-6 leading-tight mb-1">Convert Markdown</button>
             <h2 className="ml-2 mt-10 text-2xl font-bold my-3 text-zinc-600">Previous</h2>
-              {mockPrevReports.map((report, index) => (
-                <Report key={index} title={report} />
-              ))}
+            {mockPrevReports.map((report, index) => (
+              <Report key={index} title={report} />
+            ))}
+            {htmlOutput && (
+              <div className="ml-2 mt-4">
+                <h2 className="text-2xl font-bold my-3 text-zinc-600">HTML Output</h2>
+                <div dangerouslySetInnerHTML={{ __html: htmlOutput }} />
+              </div>
+            )}
           </div>
           <div className='flex-none w-0.5 bg-neutral h-screen' />
-
           {selectedTemplate !== '' &&
           <div className='flex-grow !overflow-auto !h-full !custom-scrollbar'>
             <PDFViewer className='p-4 ' showToolbar={false} style={{ width: '100%', height: '95%' }}>
@@ -76,20 +110,20 @@ const Reports = ({ userInfo, getCognitoUser }) => {
               >
                 {({ blob, url, loading, error }) =>
                   loading ? (
-                    <button className="text-white btn btn-accent min-h-0 h-6 leading-tight">
+                    <button className="text-white mx-1 btn btn-accent min-h-0 h-6 leading-tight">
                       Loading document...
                     </button>
                   ) : (
-                    <button className="text-white btn btn-accent min-h-0 h-6 leading-tight">
-                      Download
+                    <button className="text-white mx-1 btn btn-accent min-h-0 h-6 leading-tight">
+                      Download PDF
                     </button>
                   )
                 }
               </PDFDownloadLink>
+              <button className="text-white mx-1 btn btn-accent min-h-0 h-6 leading-tight" onClick={() => generateWordDoc(userInfo)}>Download Word Doc</button>
             </div>
           </div>
           }
-
         </div>
       </main>
     </PageContainer>
