@@ -1,9 +1,8 @@
 import { Font, StyleSheet } from '@react-pdf/renderer';
 
-// Register the Roboto font
 Font.register({
     family: 'Roboto',
-    src: 'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf' // URL to the Roboto font file
+    src: 'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf' 
 });
 
 export const sharedStyles = StyleSheet.create({

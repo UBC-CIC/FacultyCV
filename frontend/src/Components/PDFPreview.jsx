@@ -10,19 +10,17 @@ const PDFPreview = ({ userInfo }) => {
     return (
         <Document title={`${data.header} CV`} author={data.header}>
           <Page size="A4" style={styles.page}>
-            {/* Header */}
+   
             <View>
               <Text style={styles.header}>{data.header}</Text>
             </View>
-    
-            {/* Personal Information */}
+
             <View style={styles.personalInfo}>
               <Text style={styles.text}>Email: {data.personalInfo.email}</Text>
               <Text style={styles.text}>Phone: {data.personalInfo.phone}</Text>
               <Text style={styles.text}>Address: {data.personalInfo.address}</Text>
             </View>
-    
-            {/* Education */}
+
             <View>
               <Text style={styles.sectionHeader}>Education</Text>
               {data.education.map((edu, index) => (
@@ -30,7 +28,6 @@ const PDFPreview = ({ userInfo }) => {
               ))}
             </View>
     
-            {/* Professional Experience */}
             <View>
               <Text style={styles.sectionHeader}>Professional Experience</Text>
               {data.professionalExperience.map((job, index) => (

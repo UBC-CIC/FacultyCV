@@ -16,7 +16,7 @@ const generateWordDoc = (user) => {
               new TextRun({
                 text: data.header,
                 bold: true,
-                size: sharedStyles.header.fontSize * 2, // Convert to half-points
+                size: sharedStyles.header.fontSize * 2,
               }),
             ],
             alignment: 'center',

@@ -1,4 +1,3 @@
-// reportData.js
 export const getSharedData = (user) => ({
   header: user.preferred_name || user.first_name,
   personalInfo: {
