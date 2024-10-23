@@ -61,6 +61,13 @@ const AdminMenu = ({ userName, getCognitoUser }) => {
           {showText && !isCollapsed && <p className={`ml-2 ${location.pathname === '/templates' ? 'font-bold' : ''}`}>Templates</p>}
           </Link>
         </li>
+// added link to admin dashboard
+        <li className={`mb-2 ${location.pathname === '/admin/dashboard' ? 'bg-gray-200 rounded-lg' : ''}`}>
+          <Link to='/admin/dashboard'>
+          <FaChartLine className="h-5 w-5" />
+          {showText && !isCollapsed && <p className={`ml-2 ${location.pathname === '/admin/dashboard' ? 'font-bold' : ''}`}>Dashboard</p>}
+          </Link>
+        </li>
         <li className={`mb-2 ${location.pathname === '/sections' ? 'bg-gray-200 rounded-lg' : ''}`}>
           <Link to='/sections'>
           <FaThList className="h-5 w-5" />
